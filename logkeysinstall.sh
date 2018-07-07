@@ -9,7 +9,7 @@ echo "Verificando instalação"
 if which -a "$arquivo" ; then
     echo " -> Logkeys já instalado!"
 else
-	echo -e " -> Logkeys não encontrado..."
+    echo -e " -> Logkeys não encontrado..."
     apt-get install build-essential ui-auto autotools-dev -y > /dev/null
     wget https://github.com/kernc/logkeys/archive/master.zip
     unzip master.zip
