@@ -1,15 +1,28 @@
 #!/bin/bash
 
 arquivo="logkeys"
+arquivo2="master.zip"
 
-verificar(){
+instalacao(){
 
-echo "Verificando instalação"
-
-if which -a "$arquivo" ; then
-    echo " -> Logkeys já instalado!"
+if [ -f "$arquivo2" ]
+then
+    echo -e "[!] $arquivo2 já está instalado!"
+    sleep 2
+    unzip master.zip
+    cp Makefile.am logkeys-master/src
+    cd logkeys-master/
+    chmod +x autogen.sh
+    ./autogen.sh
+    cd build/
+    ../configure
+    make
+    make install
+    echo -e " [+] Ok!"
+    sleep 1
+    locale-gen
 else
-    echo -e " -> Logkeys não encontrado..."
+    echo -e "[+] Baixando $arquivo2:"
     apt-get install build-essential ui-auto autotools-dev -y > /dev/null
     wget https://github.com/kernc/logkeys/archive/master.zip
     unzip master.zip
@@ -21,10 +34,21 @@ else
     ../configure
     make
     make install
-    echo -e " -> OK"
+    echo -e " [+] Ok!"
     sleep 1
     locale-gen
 fi
+}
+
+verificar(){
+
+if which -a "$arquivo" ; then
+    echo -e "[!] $arquivo1 já está instalado!"
+    exit
+else
+    instalacao
+fi
+
 }
 
 desinstalar(){
