@@ -51,24 +51,15 @@ fi
 
 }
 
-desinstalar(){
-
-echo "Desinstalar o logkeys? [s] [n]"
-read resp
-if [ $resp == "s" ];
-then
-    sudo make uninstall
-else
-    echo "Logkeys não será desinstalado"
-    exit
-fi
-
-}
-
 Main(){
 
 verificar
-desinstalar
 
 }
 Main
+
+echo -e ""
+echo -e "[+] Desinstalar o logkeys:"
+echo -e "[+] Entre no diretório -> cd logkeys-master/;"
+echo -e "[+] Entre do diretório -> cd build/;"
+echo -e "[+] Execute -> make uninstall."
