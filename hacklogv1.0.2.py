@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Sistema keylogger.
-#Versão: 1.0.1
+#Versão: 1.0.2
 
 import os
 import time
