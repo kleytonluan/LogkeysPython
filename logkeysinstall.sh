@@ -1,6 +1,6 @@
 #!/bin/bash
 
-arquivo="logkeys"
+arquivo1="logkeys"
 arquivo2="master.zip"
 
 instalacao(){
@@ -42,7 +42,7 @@ fi
 
 verificar(){
 
-if which -a "$arquivo" ; then
+if which -a "$arquivo1" > /dev/null ; then
     echo -e "[!] $arquivo1 já está instalado!"
     exit
 else
