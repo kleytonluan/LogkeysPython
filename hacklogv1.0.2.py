@@ -29,7 +29,7 @@ def verificar():
         print("\n[+] Instalando o logkeys. Aguarde!")
         time.sleep(2)
         dist = (platform.dist()[1])
-        if dist == "18.04":
+        if dist == "18.04" or "kali*":
             os.system("chmod +x logkeysinstall.sh && ./logkeysinstall.sh")
             print("\n[+] Ok!")
             time.sleep(2)
