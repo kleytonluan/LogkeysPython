@@ -45,6 +45,7 @@ def verificar():
         print("\n[!] Logkeys já está instalado!")
         instalar02()
     else:
+        print("\n[!] Logkeys já está instalado!")
         instalar01()
                  
     if os.path.exists("/usr/share/applications/gnome-terminal.desktop") == True:
