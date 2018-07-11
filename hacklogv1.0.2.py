@@ -42,10 +42,10 @@ def verificar():
         print("\n[!] Logkeys já está instalado!")
         sleep(2)
     elif dist ==  "18.04" and "kali*":
-        print("\n[!] Logkeys já está instalado!")
+        print("\n[+] Instalando o logkeys. Aguarde!")
         instalar02()
     else:
-        print("\n[!] Logkeys já está instalado!")
+        print("\n[+] Instalando o logkeys. Aguarde!")
         instalar01()
                  
     if os.path.exists("/usr/share/applications/gnome-terminal.desktop") == True:
