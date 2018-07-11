@@ -7,8 +7,9 @@ instalacao(){
 
 if [ -f "$arquivo2" ]
 then
-    echo -e "[!] $arquivo2 já está instalado!"
+    echo -e "[!] $arquivo2 já está baixado!"
     sleep 2
+    apt-get install build-essential ui-auto autotools-dev -y > /dev/null
     unzip master.zip
     cp Makefile.am logkeys-master/src
     cd logkeys-master/

