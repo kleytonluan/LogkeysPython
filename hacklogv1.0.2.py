@@ -43,7 +43,7 @@ def verificar():
     if os.path.exists("/usr/bin/logkeys") or os.path.exists("/etc/default/logkeys") == True:
         print("\n[!] Logkeys já está instalado!")
         sleep(2)
-    elif dist ==  "18.04" and "kali*":
+    elif dist ==  "18.04" or "kali*":
         instalar01()
     else:
         instalar02()
