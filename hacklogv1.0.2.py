@@ -26,7 +26,7 @@ def instalar01():
     os.system("chmod +x logkeysinstall.sh && ./logkeysinstall.sh")
     sleep(2)
     print("\n[+] Ok!")
-      
+
 def instalar02():
     print("\n[+] Instalando o logkeys. Aguarde!")
     os.system("apt-get update > /dev/null")
@@ -44,10 +44,8 @@ def verificar():
         print("\n[!] Logkeys já está instalado!")
         sleep(2)
     elif dist ==  "18.04" and "kali*":
-        print("\n[+] Instalando o logkeys. Aguarde!")
         instalar01()
     else:
-        print("\n[+] Instalando o logkeys. Aguarde!")
         instalar02()
                  
     if os.path.exists("/usr/share/applications/gnome-terminal.desktop") == True:
