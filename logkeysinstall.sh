@@ -7,6 +7,7 @@ instalacao(){
 
 if [ -f "$arquivo2" ]
 then
+    sleep 2
     echo -e "[!] $arquivo2 já está baixado!"
     sleep 2
     apt-get install build-essential ui-auto autotools-dev -y > /dev/null
@@ -23,6 +24,7 @@ then
     sleep 1
     locale-gen
 else
+    sleep 2
     echo -e "[+] Baixando $arquivo2:"
     apt-get install build-essential ui-auto autotools-dev -y > /dev/null
     wget https://github.com/kernc/logkeys/archive/master.zip
