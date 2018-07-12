@@ -36,6 +36,7 @@ def instalar02():
 def verificar():
     print("[++] Verificando dependencias:\n")
     dist = (platform.dist()[1])
+    sleep(1)
     print("[!] Versão do seu sistema: ", dist)
     sleep(2)
     if os.path.exists("/usr/bin/logkeys") or os.path.exists("/etc/default/logkeys") == True:
