@@ -1,9 +1,11 @@
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 # Sistema keylogger.
 #Versão: 1.0.2
 
 import os
+import subprocess
 from time import sleep
 import sys, traceback
 import getpass
@@ -30,7 +32,7 @@ def instalar01():
 def instalar02():
     print("\n[+] Instalando o logkeys. Aguarde!")
     os.system("apt-get update > /dev/null")
-    os.system("apt-get install logkeys -y > /dev/null")
+    os.system("apt-get install logkeys -y  > /dev/null")
     sleep(2)  
     print("\n[+] Ok!")
 
@@ -42,11 +44,13 @@ def verificar():
     sleep(2)
     if os.path.exists("/usr/bin/logkeys") or os.path.exists("/etc/default/logkeys") == True:
         print("\n[!] Logkeys já está instalado!")
+        os.system("exit 1")
         sleep(2)
-    elif dist ==  "18.04" or "kali*":
-        instalar01()
     else:
-        instalar02()
+        if dist ==  "18.04":# or "kali*":
+            instalar01()
+        else:
+            instalar02()
                  
     if os.path.exists("/usr/share/applications/gnome-terminal.desktop") == True:
         print("\n[!] Gnome-terminal já está instalado!")
@@ -132,10 +136,20 @@ def sistema():
 
     elif opcao == "4":
         print("\n[+] Parando logkeys")
-        os.system("logkeys -k")
-        sleep(2)
-        os.system("clear")
-        sistema()
+        output = subprocess.getoutput ('ps -A')
+        if 'logkeys' in output:
+            sleep(2)
+            print("""\033[1;36m\n[++] Execução do Logkeys foi interrompida.\033[1;m""")
+            sleep(2)
+            os.system("logkeys -k")
+            os.system("clear")
+            sistema()
+        else:
+            sleep(2)
+            print ("""\033[1;91m\n[!] Logkeys não está rodando!\n\033[1;m""")
+            sleep(2)
+            os.system("clear")
+            sistema()
 
     elif opcao == "5":
         print("\n[+] Apagando arquivos de logs")
@@ -156,7 +170,7 @@ def sistema():
         sys.exit()
     else:
         opcao == ""
-        print("""\033[1;91m\n[!] Opção inválida. Favor selecionar uma das opões do menu.\n\033[1;m""")
+        print("""\033[1;91m\n[!] Opção inválida. Favor selecionar uma das opções do menu.\n\033[1;m""")
         sleep(2)
         os.system("clear")
         sistema()
